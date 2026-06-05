@@ -26,7 +26,6 @@
   "homepage": "https://github.com/kourou25/xugudb-dev-skills#readme",
   "files": [
     "skills/",
-    ".claude-plugin/",
     "install.js",
     "README.md",
     "LICENSE"

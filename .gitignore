@@ -1,21 +1,9 @@
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# Node
 node_modules/
-package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Claude Code temp
-.claude/
-
-# Internal planning
-plan.md
+_incoming/
+_verify_install/
+*.zip
+*.tgz

@@ -12,6 +12,10 @@ if (!fs.existsSync(src)) {
 }
 
 function copyDir(from, to) {
+  if (path.resolve(from) === path.resolve(to)) {
+    return;
+  }
+
   fs.mkdirSync(to, { recursive: true });
   for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
     const s = path.join(from, entry.name);
@@ -19,14 +23,12 @@ function copyDir(from, to) {
     if (entry.isDirectory()) {
       copyDir(s, d);
     } else {
-      fs.copyFileSync(s, d);
+      if (path.resolve(s) !== path.resolve(d)) {
+        fs.copyFileSync(s, d);
+      }
     }
   }
 }
-
-// Also copy .claude-plugin if present
-const pluginSrc = path.join(__dirname, '.claude-plugin');
-const pluginDest = path.join(process.cwd(), '.claude-plugin');
 
 console.log('XuguDB Dev Skills Installer');
 console.log('===========================');
@@ -34,11 +36,7 @@ console.log('');
 console.log('Copying skills to: ' + dest);
 copyDir(src, dest);
 
-if (fs.existsSync(pluginSrc)) {
-  console.log('Copying plugin config to: ' + pluginDest);
-  copyDir(pluginSrc, pluginDest);
-}
-
 console.log('');
-console.log('Done! 25 skills installed.');
+console.log('Done! 25 top-level skills installed.');
+console.log('The xugudb-ecosystem skill includes 37 adapter subskills.');
 console.log('Try: /xugudb in Claude Code to verify.');
